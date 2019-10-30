@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import StarRatings from "react-star-ratings";
 
 function Movie(props) {
   const [movie, setMovie] = useState();
@@ -17,22 +18,30 @@ function Movie(props) {
     <>
       {movie && (
         <div className="container">
-          <h1>{movie.title}</h1>
-          <div className="row">
-            <div className="col-4">
+          <div className="row mt-4">
+            <div className="col-3">
               <img
                 src={`http://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                className="img-fluid"
+                className="img-fluid rounded"
                 alt={`${movie.title} Poster`}
               />
             </div>
 
-            <div className="col-8">
-              <h4 className="">({movie.runtime} mins)</h4>
-              <p>{movie.overview}</p>
-              <p>
+            <div className="col-9 mt-4">
+              <h1>{movie.title}</h1>
+              <h5 className="">({movie.runtime} mins)</h5>
+              <StarRatings
+                rating={movie.vote_average / 2}
+                starRatedColor="gold"
+                numberOfStars={5}
+                name="rating"
+                starDimension="30px"
+                starSpacing="2px"
+              />
+              <p className="mt-2">{movie.overview}</p>
+              {/* <p>
                 <b>Rating: {movie.vote_average}</b> ({movie.vote_count})
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

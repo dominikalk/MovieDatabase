@@ -21,7 +21,6 @@ function App() {
       .get(`https://api.themoviedb.org/3/movie/475557?api_key=${APIKey}`)
       .then(res => {
         setMovie(res.data);
-        console.log(res.data);
       });
   }, []);
 
