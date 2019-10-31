@@ -7,13 +7,20 @@ import Home from "./components/Home";
 
 import axios from "axios";
 import Movie from "./components/Movie";
+import DiscoverPage from "./components/DiscoverPage";
+import NotFoundPage from "./components/NotFoundPage";
+
+//import { fetchData } from "./actions/fetch";
+//import { useSelector, useDispatch } from "react-redux";
 
 function App() {
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
+  //const dispatch = useDispatch();
   const [discover, setDiscover] = useState();
   const [movie, setMovie] = useState();
 
   useEffect(() => {
+    //dispatch(fetchData());
     axios
       .get(`https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}`)
       .then(res => setDiscover(res.data.results));
@@ -29,7 +36,9 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/movie/:movieName" component={Movie} />
+        <Route exact path="/movie/:movieName" component={Movie} />
+        <Route path="/discover" component={DiscoverPage} />
+        <Route component={NotFoundPage} />
       </Switch>
       {/* {movie && <Movie movie={movie} />} */}
     </>
