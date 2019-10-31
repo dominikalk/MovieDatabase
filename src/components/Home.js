@@ -33,14 +33,14 @@ function Home() {
         <MostPopularCard mostPopular={discover[number]} key={number} />
       )}
 
-      <div className="d-flex justify-content-center align-items-center flex-wrap">
+      {/* <div className="d-flex justify-content-center align-items-center flex-wrap">
         <button
           className="btn purple-gradient"
           onClick={() => setNumber(number + 1)}
         >
           Change
         </button>
-      </div>
+      </div> */}
 
       {popular && <Discover discover={popular} name={"Upcoming ..."} />}
       {discover && <Discover discover={discover} name={"Discover ..."} />}

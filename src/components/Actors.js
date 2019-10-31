@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
+import Img from "react-image";
 
 function Actors({ actors, name }) {
   return (
@@ -13,13 +14,20 @@ function Actors({ actors, name }) {
               return (
                 <div
                   className="card mx-auto mt-2 hoverable"
-                  style={{ width: "18%" }}
+                  style={{ width: "18%", borderRadius: "20%" }}
                   key={i}
                 >
-                  <img
+                  <Img
                     className="card-img-top"
-                    style={{ width: "100%", height: "auto" }}
-                    src={`http://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "20px"
+                    }}
+                    src={[
+                      `http://image.tmdb.org/t/p/w500${actor.profile_path}`,
+                      require("../assets/no-pic.jpg")
+                    ]}
                     alt={`${actor.name} Poster`}
                   />
                   <div
@@ -27,7 +35,8 @@ function Actors({ actors, name }) {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center"
+                      justifyContent: "center",
+                      padding: "1vw"
                     }}
                   >
                     <div className="text-center">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
+import Img from "react-image";
 import axios from "axios";
 
 function Discover({ discover, name }) {
@@ -9,6 +10,7 @@ function Discover({ discover, name }) {
   return (
     <>
       <h1>{name}</h1>
+
       <div className="d-flex justify-content-center align-items-center flex-wrap container align-items-stretch">
         {discover &&
           discover.map((movie, i) => {
@@ -17,13 +19,20 @@ function Discover({ discover, name }) {
                 return (
                   <div
                     className="card mx-auto mt-2 hoverable"
-                    style={{ width: "18%" }}
+                    style={{ width: "18%", borderRadius: "20%" }}
                     key={i}
                   >
-                    <img
+                    <Img
                       className="card-img-top"
-                      style={{ width: "100%", height: "auto" }}
-                      src={`http://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "20px"
+                      }}
+                      src={[
+                        `http://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                        require("../assets/no-pic.jpg")
+                      ]}
                       alt={`${movie.title} Poster`}
                     />
                     <div
@@ -31,7 +40,8 @@ function Discover({ discover, name }) {
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center"
+                        justifyContent: "center",
+                        padding: "1vw"
                       }}
                     >
                       <div className="text-center">

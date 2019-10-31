@@ -10,10 +10,14 @@ function Movie(props) {
   const [actors, setActors] = useState();
   const [image, setImage] = useState();
   const [similar, setSimilar] = useState();
+
   //const [error, setErrror] = useState(false);
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
 
   useEffect(() => {
+    console.log("got here");
+    console.log(movie, props.match.params.movieName);
+
     if (!actors) {
       axios
         .get(
@@ -26,15 +30,29 @@ function Movie(props) {
         .get(
           `https://api.themoviedb.org/3/movie/${props.match.params.movieName}?api_key=${APIKey}`
         )
-        .then(res => setMovie(res.data));
+        .then(res => {
+          setMovie(res.data);
+          setImage(res.data.backdrop_path);
+        });
     }
 
     if (movie) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${movie.id}/images?api_key=ae26cfa38fa23d831332968adb914c97`
-        )
-        .then(res => setImage(res.data.backdrops[0].file_path));
+      // try {
+      //   axios
+      //     .get(
+      //       `https://api.themoviedb.org/3/movie/${movie.id}/images?api_key=ae26cfa38fa23d831332968adb914c97`
+      //     )
+      //     .then(res => setImage(res.data.backdrops[0].file_path));
+      // } catch (err) {
+      //   setImage("/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg");
+      // }
+
+      if (movie.id.toString() !== props.match.params.movieName) {
+        setActors();
+        setMovie();
+        setImage();
+        setSimilar();
+      }
     }
 
     if (!similar) {
@@ -44,10 +62,7 @@ function Movie(props) {
         )
         .then(res => setSimilar(res.data));
     }
-  }, [movie]);
-
-  console.log(movie);
-  console.log(similar);
+  }, [movie, props.match.params.movieName]);
 
   return (
     <div className="container">
@@ -121,7 +136,32 @@ function Movie(props) {
           </div>
         </div>
       )}
-      {movie && (
+
+      {!image && movie && (
+        <div
+          className="container rgba-red-strong mt-3 card-image"
+          style={{
+            borderRadius: "25px",
+            backgroundImage:
+              "url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg)",
+            backgroundSize: "100%"
+          }}
+        >
+          <div
+            className="rgba-red-strong row justify-content-center"
+            style={{ borderRadius: "25px" }}
+          >
+            <div className="mt-2 text-center" style={{ padding: "5vw" }}>
+              <h1 className="">Movie Details Not Available</h1>
+              <Link className="btn btn-danger btn-rounded" to="/">
+                Home
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {image && movie && (
         <div className="row">
           <div className="col-8">
             {actors && <Actors actors={actors} name="Actors ..." />}
@@ -162,36 +202,9 @@ function Movie(props) {
         </div>
       )}
 
-      {similar && similar.total_results !== 0 && (
+      {image && similar && similar.total_results !== 0 && (
         <Discover discover={similar.results} name="You may also like ..." />
       )}
-      {/* {movie && (
-        <div className="container">
-          <div className="row mt-4">
-            <div className="col-3">
-              <img
-                src={`http://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                className="img-fluid rounded"
-                alt={`${movie.title} Poster`}
-              />
-            </div>
-
-            <div className="col-9 mt-4">
-              <h1>{movie.title}</h1>
-              <h5 className="">({movie.runtime} mins)</h5>
-              <StarRatings
-                rating={movie.vote_average / 2}
-                starRatedColor="gold"
-                numberOfStars={5}
-                name="rating"
-                starDimension="30px"
-                starSpacing="2px"
-              />
-              <p className="mt-2">{movie.overview}</p>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 }

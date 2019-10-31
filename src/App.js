@@ -40,7 +40,6 @@ function App() {
         <Route path="/discover" component={DiscoverPage} />
         <Route component={NotFoundPage} />
       </Switch>
-      {/* {movie && <Movie movie={movie} />} */}
     </>
   );
 }
