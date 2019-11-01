@@ -16,7 +16,7 @@ function Actors({ actors, name, isHome }) {
               return (
                 <div
                   className="card mx-auto mt-2 hoverable"
-                  style={{ width: "18%", borderRadius: "20%" }}
+                  style={{ width: "18%", borderRadius: "20px" }}
                   key={i}
                 >
                   <Link
@@ -28,11 +28,11 @@ function Actors({ actors, name, isHome }) {
                       style={{
                         width: "100%",
                         height: "auto",
-                        borderRadius: "20px"
+                        borderRadius: "20px 20px 0px 0px"
                       }}
                       src={[
                         `http://image.tmdb.org/t/p/w500${actor.profile_path}`,
-                        require("../assets/no-pic.jpg")
+                        require("../assets/no-pic.png")
                       ]}
                       alt={`${actor.name} Poster`}
                     />

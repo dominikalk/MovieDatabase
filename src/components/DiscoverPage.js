@@ -6,6 +6,8 @@ import DiscoverItems from "./DiscoverItems";
 import { animateScroll as scroll } from "react-scroll";
 
 function DiscoverPage(props) {
+  const [sort, setSort] = useState("None");
+  const [sortName, setSortName] = useState("None");
   const [discover, setDiscover] = useState();
   const [query, setQuery] = useState("");
   const [isQuery, setIsQuery] = useState(false);
@@ -28,20 +30,37 @@ function DiscoverPage(props) {
 
     //if (!discover) {
     if (!isQueryTemp) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&page=${page}&year=${year}`
-        )
-        .then(res => {
-          setDiscover(res.data.results);
-          setPages(res.data.total_pages);
-          setIsQuery(false);
-          if (res.data.total_results === 0) {
-            setHasResult(false);
-          } else {
-            setHasResult(true);
-          }
-        });
+      if (sort !== "None") {
+        axios
+          .get(
+            `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&page=${page}&year=${year}&sort_by=${sort}`
+          )
+          .then(res => {
+            setDiscover(res.data.results);
+            setPages(res.data.total_pages);
+            setIsQuery(false);
+            if (res.data.total_results === 0) {
+              setHasResult(false);
+            } else {
+              setHasResult(true);
+            }
+          });
+      } else {
+        axios
+          .get(
+            `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&page=${page}&year=${year}`
+          )
+          .then(res => {
+            setDiscover(res.data.results);
+            setPages(res.data.total_pages);
+            setIsQuery(false);
+            if (res.data.total_results === 0) {
+              setHasResult(false);
+            } else {
+              setHasResult(true);
+            }
+          });
+      }
     } else {
       axios
         .get(
@@ -51,6 +70,13 @@ function DiscoverPage(props) {
           setDiscover(res.data.results);
           setPages(res.data.total_pages);
           setIsQuery(false);
+          setSort("None");
+          setSortName("None");
+          // NotificationManager.warning(
+          //   "You cannot sort a query search",
+          //   "Close after 3000ms",
+          //   3000
+          // );
           if (res.data.total_results === 0) {
             setHasResult(false);
           } else {
@@ -153,6 +179,75 @@ function DiscoverPage(props) {
                   }}
                 >
                   2015
+                </button>
+              </div>
+            </div>
+            <div className="dropdown">
+              <button
+                className="btn btn-dark dropdown-toggle"
+                type="button"
+                id="dropdownMenuMenu"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Sort By: {sortName}
+              </button>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuMenu">
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    setPage(1);
+                    setIsQuery(true);
+                    setSort("None");
+                    setSearch("Search");
+                    setSortName("None");
+                  }}
+                >
+                  None
+                </button>
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    setPage(1);
+                    setIsQuery(true);
+                    setQuery("");
+                    setSearch("Search");
+                    setSort("popularity.desc");
+                    setSortName("Popularity");
+                  }}
+                >
+                  Popularity
+                </button>
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    setPage(1);
+                    setIsQuery(true);
+                    setQuery("");
+                    setSearch("Search");
+                    setSort("vote_average.desc");
+                    setSortName("Rating");
+                  }}
+                >
+                  Rating
+                </button>
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    setPage(1);
+                    setSearch("Search");
+                    setIsQuery(true);
+                    setQuery("");
+                    setSort("revenue.desc");
+                    setSortName("Revenue");
+                  }}
+                >
+                  Revenue
                 </button>
               </div>
             </div>

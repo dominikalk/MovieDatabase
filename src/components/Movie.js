@@ -5,17 +5,27 @@ import { Link } from "react-router-dom";
 import Discover from "./Discover";
 import Actors from "./Actors";
 import GetDate from "./GetDate";
+import YouTube from "react-youtube";
 
 function Movie(props) {
   const [movie, setMovie] = useState();
   const [actors, setActors] = useState();
   const [image, setImage] = useState();
   const [similar, setSimilar] = useState();
+  const [videoId, setVideoId] = useState();
 
   //const [error, setErrror] = useState(false);
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
 
   useEffect(() => {
+    if (!videoId) {
+      axios
+        .get(
+          `
+          https://api.themoviedb.org/3/movie/${props.match.params.movieName}/videos?api_key=${APIKey}`
+        )
+        .then(res => setVideoId(res.data.results));
+    }
     if (!actors) {
       axios
         .get(
@@ -68,14 +78,12 @@ function Movie(props) {
     minimumFractionDigits: 2
   });
 
+  function onReady(event) {
+    event.target.pauseVideo();
+  }
+
   return (
     <div className="container">
-      {/* {error && (
-        <>
-          <h1>Error - Movie Does Not Exist</h1>
-          <Link to="/">Home</Link>
-        </>
-      )} */}
       {image && movie && (
         <div
           className="mt-3 hoverable animated pulse"
@@ -172,6 +180,13 @@ function Movie(props) {
         <div className="row">
           <div className="col-8">
             {actors && <Actors actors={actors} name="Actors ..." />}
+            {image && similar && similar.total_results !== 0 && (
+              <Discover
+                discover={similar.results}
+                name="You may also like ..."
+                isInMovie={true}
+              />
+            )}
           </div>
           <div className="col-4" style={{ fontSize: "1.1vw" }}>
             <h1 style={{ fontSize: "3vw" }}>Details ...</h1>
@@ -211,12 +226,27 @@ function Movie(props) {
                 {formatter.format(movie.revenue)}
               </li>
             </ul>
+
+            {videoId && (
+              <div className="justify-content-center align-items-center">
+                {videoId && videoId.length >= 1 && (
+                  <YouTube
+                    videoId={videoId[0].key}
+                    onReady={onReady}
+                    opts={{ width: "100%", height: "auto" }}
+                  />
+                )}
+                {videoId && videoId.length >= 2 && (
+                  <YouTube
+                    videoId={videoId[1].key}
+                    onReady={onReady}
+                    opts={{ width: "100%", height: "auto" }}
+                  />
+                )}
+              </div>
+            )}
           </div>
         </div>
-      )}
-
-      {image && similar && similar.total_results !== 0 && (
-        <Discover discover={similar.results} name="You may also like ..." />
       )}
     </div>
   );

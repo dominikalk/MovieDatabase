@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Img from "react-image";
 import { animateScroll as scroll } from "react-scroll";
 
-function Discover({ discover, name }) {
+function Discover({ discover, name, isInMovie }) {
   let length = 5;
 
   return (
@@ -21,7 +21,7 @@ function Discover({ discover, name }) {
                 return (
                   <div
                     className="card mx-auto mt-2 hoverable"
-                    style={{ width: "18%", borderRadius: "20%" }}
+                    style={{ width: "18%", borderRadius: "20px" }}
                     key={i}
                   >
                     <Link
@@ -35,11 +35,11 @@ function Discover({ discover, name }) {
                         style={{
                           width: "100%",
                           height: "auto",
-                          borderRadius: "20px"
+                          borderRadius: "20px 20px 0px 0px"
                         }}
                         src={[
                           `http://image.tmdb.org/t/p/w500${movie.poster_path}`,
-                          require("../assets/no-pic.jpg")
+                          require("../assets/no-pic.png")
                         ]}
                         alt={`${movie.title} Poster`}
                       />
@@ -54,30 +54,58 @@ function Discover({ discover, name }) {
                         padding: "1vw"
                       }}
                     >
-                      <div className="text-center">
-                        <Link
-                          to={`/movie/${movie.id}`}
-                          onClick={() => {
-                            scroll.scrollToTop();
-                          }}
-                        >
-                          <h5
-                            className="card-title"
-                            style={{ fontSize: "1.5vw" }}
+                      {!isInMovie && (
+                        <div className="text-center">
+                          <Link
+                            to={`/movie/${movie.id}`}
+                            onClick={() => {
+                              scroll.scrollToTop();
+                            }}
                           >
-                            {movie.title}
-                          </h5>
-                        </Link>
-                        <StarRatings
-                          rating={movie.vote_average / 2}
-                          starRatedColor="gold"
-                          //changeRating={this.changeRating}
-                          numberOfStars={5}
-                          name="rating"
-                          starDimension="1.5vw"
-                          starSpacing="0px"
-                        />
-                      </div>
+                            <h5
+                              className="card-title"
+                              style={{ fontSize: "1.5vw" }}
+                            >
+                              {movie.title}
+                            </h5>
+                          </Link>
+                          <StarRatings
+                            rating={movie.vote_average / 2}
+                            starRatedColor="gold"
+                            //changeRating={this.changeRating}
+                            numberOfStars={5}
+                            name="rating"
+                            starDimension="1.5vw"
+                            starSpacing="0px"
+                          />
+                        </div>
+                      )}
+                      {isInMovie && (
+                        <div className="text-center">
+                          <Link
+                            to={`/movie/${movie.id}`}
+                            onClick={() => {
+                              scroll.scrollToTop();
+                            }}
+                          >
+                            <h5
+                              className="card-title"
+                              style={{ fontSize: "1vw" }}
+                            >
+                              {movie.title}
+                            </h5>
+                          </Link>
+                          <StarRatings
+                            rating={movie.vote_average / 2}
+                            starRatedColor="gold"
+                            //changeRating={this.changeRating}
+                            numberOfStars={5}
+                            name="rating"
+                            starDimension="0.9vw"
+                            starSpacing="0px"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 );

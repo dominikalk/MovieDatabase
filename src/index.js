@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.min.css";
 import "mdbreact/dist/css/mdb.css";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
