@@ -9,6 +9,8 @@ import axios from "axios";
 import Movie from "./components/Movie";
 import DiscoverPage from "./components/DiscoverPage";
 import NotFoundPage from "./components/NotFoundPage";
+import ActorProfile from "./components/ActorProfile";
+import ActorsPage from "./components/ActorsPage";
 
 //import { fetchData } from "./actions/fetch";
 //import { useSelector, useDispatch } from "react-redux";
@@ -19,17 +21,17 @@ function App() {
   const [discover, setDiscover] = useState();
   const [movie, setMovie] = useState();
 
-  useEffect(() => {
-    //dispatch(fetchData());
-    axios
-      .get(`https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}`)
-      .then(res => setDiscover(res.data.results));
-    axios
-      .get(`https://api.themoviedb.org/3/movie/475557?api_key=${APIKey}`)
-      .then(res => {
-        setMovie(res.data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchData());
+  //   axios
+  //     .get(`https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}`)
+  //     .then(res => setDiscover(res.data.results));
+  //   axios
+  //     .get(`https://api.themoviedb.org/3/movie/475557?api_key=${APIKey}`)
+  //     .then(res => {
+  //       setMovie(res.data);
+  //     });
+  // }, []);
 
   return (
     <>
@@ -38,6 +40,8 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route exact path="/movie/:movieName" component={Movie} />
         <Route path="/discover" component={DiscoverPage} />
+        <Route path="/actors" component={ActorsPage} />
+        <Route path="/actor/:actorId" component={ActorProfile} />
         <Route component={NotFoundPage} />
       </Switch>
     </>

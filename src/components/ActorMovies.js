@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import Img from "react-image";
+import axios from "axios";
 
-function Actors({ actors, name }) {
+function ActorMovies({ movies }) {
   return (
     <>
-      <h1>{name}</h1>
+      <h1>Known For ...</h1>
       <div className="d-flex justify-content-center align-items-center flex-wrap container align-items-stretch">
-        {actors &&
-          actors.map((actor, i) => {
+        {movies &&
+          movies.map((movie, i) => {
             if (i < 5) {
               return (
                 <div
@@ -17,7 +18,7 @@ function Actors({ actors, name }) {
                   style={{ width: "18%", borderRadius: "20%" }}
                   key={i}
                 >
-                  <Link to={`/actor/${actor.id}`}>
+                  <Link to={`/movie/${movie.id}`}>
                     <Img
                       className="card-img-top z-depth-2"
                       style={{
@@ -26,10 +27,10 @@ function Actors({ actors, name }) {
                         borderRadius: "20px"
                       }}
                       src={[
-                        `http://image.tmdb.org/t/p/w500${actor.profile_path}`,
+                        `http://image.tmdb.org/t/p/w500${movie.poster_path}`,
                         require("../assets/no-pic.jpg")
                       ]}
-                      alt={`${actor.name} Poster`}
+                      alt={`${movie.title} Poster`}
                     />
                   </Link>
 
@@ -43,12 +44,15 @@ function Actors({ actors, name }) {
                     }}
                   >
                     <div className="text-center">
-                      <h5 className="card-title" style={{ fontSize: "1vw" }}>
-                        <Link to={`/actor/${actor.id}`}>
-                          <b>{actor.name}</b>
-                        </Link>
-                      </h5>
-                      <h5 style={{ fontSize: "1vw" }}>{actor.character}</h5>
+                      <Link to={`/movie/${movie.id}`}>
+                        <h5
+                          className="card-title"
+                          style={{ fontSize: "1.5vw" }}
+                        >
+                          {movie.title}
+                        </h5>
+                      </Link>
+                      <p>{movie.character}</p>
                     </div>
                   </div>
                 </div>
@@ -60,4 +64,4 @@ function Actors({ actors, name }) {
   );
 }
 
-export default Actors;
+export default ActorMovies;

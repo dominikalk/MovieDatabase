@@ -22,19 +22,22 @@ function Discover({ discover, name }) {
                     style={{ width: "18%", borderRadius: "20%" }}
                     key={i}
                   >
-                    <Img
-                      className="card-img-top"
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "20px"
-                      }}
-                      src={[
-                        `http://image.tmdb.org/t/p/w500${movie.poster_path}`,
-                        require("../assets/no-pic.jpg")
-                      ]}
-                      alt={`${movie.title} Poster`}
-                    />
+                    <Link to={`/movie/${movie.id}`}>
+                      <Img
+                        className="card-img-top z-depth-2"
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          borderRadius: "20px"
+                        }}
+                        src={[
+                          `http://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                          require("../assets/no-pic.jpg")
+                        ]}
+                        alt={`${movie.title} Poster`}
+                      />
+                    </Link>
+
                     <div
                       className="card-body"
                       style={{

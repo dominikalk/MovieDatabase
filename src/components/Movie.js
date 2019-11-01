@@ -4,6 +4,7 @@ import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import Discover from "./Discover";
 import Actors from "./Actors";
+import GetDate from "./GetDate";
 
 function Movie(props) {
   const [movie, setMovie] = useState();
@@ -15,9 +16,6 @@ function Movie(props) {
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
 
   useEffect(() => {
-    console.log("got here");
-    console.log(movie, props.match.params.movieName);
-
     if (!actors) {
       axios
         .get(
@@ -63,6 +61,12 @@ function Movie(props) {
         .then(res => setSimilar(res.data));
     }
   }, [movie, props.match.params.movieName]);
+
+  const formatter = new Intl.NumberFormat("en-UK", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2
+  });
 
   return (
     <div className="container">
@@ -156,6 +160,9 @@ function Movie(props) {
               <Link className="btn btn-danger btn-rounded" to="/">
                 Home
               </Link>
+              <Link className="btn btn-danger btn-rounded" to="/discover">
+                Movies
+              </Link>
             </div>
           </div>
         </div>
@@ -168,21 +175,25 @@ function Movie(props) {
           </div>
           <div className="col-4" style={{ fontSize: "1.1vw" }}>
             <h1>Details ...</h1>
-            <ul className="list-group">
-              <li className="list-group-item" style={{ padding: "0.8vw 3vw" }}>
+            <ul className="list-group-flush" style={{ padding: "0px" }}>
+              <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
+                <i className="fas fa-signature mr-3"></i>
                 Name: {movie.title}
               </li>
-              <li className="list-group-item" style={{ padding: "0.8vw 3vw" }}>
-                Rating: {movie.vote_average / 2}
+              <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
+                <i className="far fa-star mr-3"></i>Rating:{" "}
+                {movie.vote_average / 2} / 5
               </li>
-              <li className="list-group-item" style={{ padding: "0.8vw 3vw" }}>
-                Runtime: {movie.runtime} mins
+              <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
+                <i className="far fa-clock mr-3"></i>Runtime: {movie.runtime}{" "}
+                mins
               </li>
-              <li className="list-group-item" style={{ padding: "0.8vw 3vw" }}>
-                Release Date: {movie.release_date}
+              <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
+                <i className="far fa-calendar-alt mr-3"></i>Release Date:{" "}
+                {GetDate(movie.release_date)}
               </li>
-              <li className="list-group-item" style={{ padding: "0.8vw 3vw" }}>
-                Genre(s):{" "}
+              <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
+                <i className="fas fa-film mr-3"></i>Genre(s):{" "}
                 {movie.genres.map((genre, i) => {
                   if (i === movie.genres.length - 1) {
                     return `${genre.name}`;
@@ -191,11 +202,13 @@ function Movie(props) {
                   }
                 })}
               </li>
-              <li className="list-group-item" style={{ padding: "0.8vw 3vw" }}>
-                Budget: {movie.budget}
+              <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
+                <i className="fas fa-hand-holding-usd mr-3"></i>Budget:{" "}
+                {formatter.format(movie.budget)}
               </li>
-              <li className="list-group-item" style={{ padding: "0.8vw 3vw" }}>
-                Revenue: {movie.revenue}
+              <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
+                <i className="fas fa-dollar-sign mr-3"></i>Revenue:{" "}
+                {formatter.format(movie.revenue)}
               </li>
             </ul>
           </div>

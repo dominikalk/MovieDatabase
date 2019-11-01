@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import DiscoverItems from "./DiscoverItems";
+import ActorItems from "./ActorItems";
 import { animateScroll as scroll } from "react-scroll";
 
-function DiscoverPage(props) {
+function ActorsPage(props) {
   const [discover, setDiscover] = useState();
   const [query, setQuery] = useState("");
   const [isQuery, setIsQuery] = useState(false);
@@ -13,24 +13,19 @@ function DiscoverPage(props) {
   const [hasResult, setHasResult] = useState(true);
   const [pages, setPages] = useState();
   const [search, setSearch] = useState("Search");
-  const [year, setYear] = useState("None");
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
-  //const [ loaded , setLoaded ] = useState(true);
 
   useEffect(() => {
     let isQueryTemp = true;
-
     if (query !== "") {
       isQueryTemp = true;
     } else {
       isQueryTemp = false;
     }
-
-    //if (!discover) {
     if (!isQueryTemp) {
       axios
         .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&page=${page}&year=${year}`
+          `https://api.themoviedb.org/3/person/popular?api_key=${APIKey}&page=${page}`
         )
         .then(res => {
           setDiscover(res.data.results);
@@ -45,7 +40,7 @@ function DiscoverPage(props) {
     } else {
       axios
         .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${APIKey}&page=${page}&query=${query}&year=${year}`
+          `https://api.themoviedb.org/3/search/person?api_key=${APIKey}&page=${page}&query=${query}`
         )
         .then(res => {
           setDiscover(res.data.results);
@@ -58,8 +53,6 @@ function DiscoverPage(props) {
           }
         });
     }
-
-    //}
   }, [page, isQuery]);
 
   function handleQuerySubmit(event) {
@@ -82,88 +75,7 @@ function DiscoverPage(props) {
           <div
             className="col-8"
             style={{ display: "flex", alignItems: "center" }}
-          >
-            <div className="dropdown">
-              <button
-                className="btn btn-dark dropdown-toggle"
-                type="button"
-                id="dropdownMenuMenu"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Year: {year}
-              </button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuMenu">
-                <button
-                  className="dropdown-item"
-                  type="button"
-                  onClick={() => {
-                    setPage(1);
-                    setIsQuery(true);
-                    setYear("None");
-                  }}
-                >
-                  None
-                </button>
-                <button
-                  className="dropdown-item"
-                  type="button"
-                  onClick={() => {
-                    setPage(1);
-                    setIsQuery(true);
-                    setYear("2019");
-                  }}
-                >
-                  2019
-                </button>
-                <button
-                  className="dropdown-item"
-                  type="button"
-                  onClick={() => {
-                    setPage(1);
-                    setIsQuery(true);
-                    setYear("2018");
-                  }}
-                >
-                  2018
-                </button>
-                <button
-                  className="dropdown-item"
-                  type="button"
-                  onClick={() => {
-                    setPage(1);
-                    setIsQuery(true);
-                    setYear("2017");
-                  }}
-                >
-                  2017
-                </button>
-                <button
-                  className="dropdown-item"
-                  type="button"
-                  onClick={() => {
-                    setPage(1);
-                    setIsQuery(true);
-                    setYear("2016");
-                  }}
-                >
-                  2016
-                </button>
-                <button
-                  className="dropdown-item"
-                  type="button"
-                  onClick={() => {
-                    setPage(1);
-                    setIsQuery(true);
-                    setYear("2015");
-                  }}
-                >
-                  2015
-                </button>
-              </div>
-            </div>
-          </div>
+          ></div>
           <div className="col-4">
             <form onSubmit={handleQuerySubmit} className="md-form" type="input">
               <input
@@ -189,7 +101,7 @@ function DiscoverPage(props) {
       <div className="container mt-1">
         <h1>Discover ...</h1>
       </div>
-      {hasResult && <DiscoverItems discover={discover} />}
+      {hasResult && <ActorItems discover={discover} />}
       {!hasResult && (
         <div
           className="container rgba-red-strong mt-3 card-image"
@@ -278,4 +190,4 @@ function DiscoverPage(props) {
   );
 }
 
-export default DiscoverPage;
+export default ActorsPage;

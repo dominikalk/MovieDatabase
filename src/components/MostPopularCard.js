@@ -31,12 +31,14 @@ function MostPopularCard({ mostPopular }) {
             <div className=" row">
               <div className="col-3 Aligner" style={{ margin: "0px" }}>
                 {" "}
-                <img
-                  src={`http://image.tmdb.org/t/p/w500${mostPopular.poster_path}`}
-                  className="img-fluid m-4"
-                  alt={`${mostPopular.title} Poster`}
-                  style={{ borderRadius: "25px" }}
-                />
+                <Link to={`/movie/${mostPopular.id}`}>
+                  <img
+                    src={`http://image.tmdb.org/t/p/w500${mostPopular.poster_path}`}
+                    className="img-fluid m-4"
+                    alt={`${mostPopular.title} Poster`}
+                    style={{ borderRadius: "25px" }}
+                  />
+                </Link>
               </div>
               <div className="col-9 Aligner">
                 <div
