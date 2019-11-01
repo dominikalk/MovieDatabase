@@ -7,7 +7,7 @@ import axios from "axios";
 function ActorMovies({ movies }) {
   return (
     <>
-      <h1>Known For ...</h1>
+      <h1 style={{ fontSize: "3vw" }}>Known For ...</h1>
       <div className="d-flex justify-content-center align-items-center flex-wrap container align-items-stretch">
         {movies &&
           movies.map((movie, i) => {
@@ -52,7 +52,7 @@ function ActorMovies({ movies }) {
                           {movie.title}
                         </h5>
                       </Link>
-                      <p>{movie.character}</p>
+                      <p style={{ fontSize: "1.5vw" }}>{movie.character}</p>
                     </div>
                   </div>
                 </div>

@@ -40,10 +40,14 @@ function ActorProfile(props) {
             `https://api.themoviedb.org/3/person/${props.match.params.actorId}/movie_credits?api_key=ae26cfa38fa23d831332968adb914c97`
           )
           .then(res => {
-            setImage(res.data.cast[0].backdrop_path);
+            if (res.data.cast[0]) {
+              setImage(res.data.cast[0].backdrop_path);
+            } else {
+              setImage(null);
+            }
           });
       } else {
-        setImage();
+        setImage(null);
       }
     }
   }, [actor]);

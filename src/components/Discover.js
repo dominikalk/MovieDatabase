@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import Img from "react-image";
-import axios from "axios";
+import { animateScroll as scroll } from "react-scroll";
 
 function Discover({ discover, name }) {
   let length = 5;
 
   return (
     <>
-      <h1>{name}</h1>
+      <h1 className="mt-3" style={{ fontSize: "3vw" }}>
+        {name}
+      </h1>
 
       <div className="d-flex justify-content-center align-items-center flex-wrap container align-items-stretch">
         {discover &&
@@ -22,7 +24,12 @@ function Discover({ discover, name }) {
                     style={{ width: "18%", borderRadius: "20%" }}
                     key={i}
                   >
-                    <Link to={`/movie/${movie.id}`}>
+                    <Link
+                      to={`/movie/${movie.id}`}
+                      onClick={() => {
+                        scroll.scrollToTop();
+                      }}
+                    >
                       <Img
                         className="card-img-top z-depth-2"
                         style={{
@@ -48,7 +55,12 @@ function Discover({ discover, name }) {
                       }}
                     >
                       <div className="text-center">
-                        <Link to={`/movie/${movie.id}`}>
+                        <Link
+                          to={`/movie/${movie.id}`}
+                          onClick={() => {
+                            scroll.scrollToTop();
+                          }}
+                        >
                           <h5
                             className="card-title"
                             style={{ fontSize: "1.5vw" }}

@@ -11,7 +11,7 @@ function ActorsPage(props) {
   const [isQuery, setIsQuery] = useState(false);
   const [page, setPage] = useState(1);
   const [hasResult, setHasResult] = useState(true);
-  const [pages, setPages] = useState();
+  const [pages, setPages] = useState(0);
   const [search, setSearch] = useState("Search");
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
 
@@ -61,13 +61,6 @@ function ActorsPage(props) {
     event.preventDefault();
   }
 
-  // function handleYearChange(event) {
-  //   setPage(1);
-  //   setIsQuery(true);
-  //   setYear(event.data);
-  //   debugger;
-  // }
-
   return (
     <>
       <div className="container">
@@ -99,7 +92,7 @@ function ActorsPage(props) {
       </div>
 
       <div className="container mt-1">
-        <h1>Discover ...</h1>
+        <h1 style={{ fontSize: "3vw" }}>Actors ...</h1>
       </div>
       {hasResult && <ActorItems discover={discover} />}
       {!hasResult && (
@@ -126,7 +119,7 @@ function ActorsPage(props) {
         </div>
       )}
 
-      {page && pages && (
+      {page && (
         <div className="d-flex justify-content-center mt-3">
           {page - 2 > 0 && page - 2 < pages + 1 && (
             <button

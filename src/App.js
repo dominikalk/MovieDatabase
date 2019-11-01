@@ -11,6 +11,7 @@ import DiscoverPage from "./components/DiscoverPage";
 import NotFoundPage from "./components/NotFoundPage";
 import ActorProfile from "./components/ActorProfile";
 import ActorsPage from "./components/ActorsPage";
+import Footer from "./components/Footer";
 
 //import { fetchData } from "./actions/fetch";
 //import { useSelector, useDispatch } from "react-redux";
@@ -35,15 +36,24 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route exact path="/movie/:movieName" component={Movie} />
-        <Route path="/discover" component={DiscoverPage} />
-        <Route path="/actors" component={ActorsPage} />
-        <Route path="/actor/:actorId" component={ActorProfile} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <div
+        style={{
+          position: "relative",
+          minHeight: "86vh"
+        }}
+      >
+        <Navbar />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route exact path="/movie/:movieName" component={Movie} />
+          <Route path="/discover" component={DiscoverPage} />
+          <Route path="/actors" component={ActorsPage} />
+          <Route path="/actor/:actorId" component={ActorProfile} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </div>
+
+      <Footer />
     </>
   );
 }
