@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import Img from "react-image";

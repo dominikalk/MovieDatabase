@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
-
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-
-import axios from "axios";
 import Movie from "./components/Movie";
 import DiscoverPage from "./components/DiscoverPage";
 import NotFoundPage from "./components/NotFoundPage";
@@ -14,10 +11,6 @@ import ActorsPage from "./components/ActorsPage";
 import Footer from "./components/Footer";
 
 function App() {
-  const APIKey = "ae26cfa38fa23d831332968adb914c97";
-  //const dispatch = useDispatch();
-  const [discover, setDiscover] = useState();
-
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <div style={{ paddingBottom: "5.5rem" }}>

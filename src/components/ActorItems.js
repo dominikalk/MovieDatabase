@@ -1,29 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import StarRatings from "react-star-ratings";
 import Img from "react-image";
 import { animateScroll as scroll } from "react-scroll";
-import ReactSVG from "react-svg";
 
 function ActorItems({ discover }) {
-  //const [ discover , setDiscover ]
-
-  // useEffect(() => {
-  //   axios
-  //   .get()
-  //   .then(res => setDiscover(res.data.results))
-  // }, []);
-
   return (
     <div className="d-flex justify-content-center align-items-center flex-wrap container align-items-stretch">
       {discover &&
         discover.map((actor, i) => {
-          if (
-            // movie.vote_average !== null &&
-            // movie.poster_path !== null &&
-            // movie.vote_average !== 0
-            true
-          ) {
+          if (true) {
             return (
               <div
                 className="card mx-auto mt-2 mb-4 hoverable "

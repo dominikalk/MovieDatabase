@@ -13,8 +13,6 @@ function Movie(props) {
   const [image, setImage] = useState();
   const [similar, setSimilar] = useState();
   const [videoId, setVideoId] = useState();
-
-  //const [error, setErrror] = useState(false);
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
 
   useEffect(() => {
@@ -45,16 +43,6 @@ function Movie(props) {
     }
 
     if (movie) {
-      // try {
-      //   axios
-      //     .get(
-      //       `https://api.themoviedb.org/3/movie/${movie.id}/images?api_key=ae26cfa38fa23d831332968adb914c97`
-      //     )
-      //     .then(res => setImage(res.data.backdrops[0].file_path));
-      // } catch (err) {
-      //   setImage("/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg");
-      // }
-
       if (movie.id.toString() !== props.match.params.movieName) {
         setActors();
         setMovie();
@@ -135,13 +123,6 @@ function Movie(props) {
                       }
                     })}
                   </p>
-                  {/* <Link
-                    to={`/movie/${movie.id}`}
-                    className="btn aqua-gradient"
-                    style={{ fontSize: "1.5vw", padding: "1vw 2vw" }}
-                  >
-                    See More
-                  </Link> */}
                 </div>
               </div>
             </div>

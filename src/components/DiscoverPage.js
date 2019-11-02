@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import DiscoverItems from "./DiscoverItems";
@@ -17,7 +16,6 @@ function DiscoverPage(props) {
   const [search, setSearch] = useState("Search");
   const [year, setYear] = useState("None");
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
-  //const [ loaded , setLoaded ] = useState(true);
 
   useEffect(() => {
     let isQueryTemp = true;
@@ -27,8 +25,6 @@ function DiscoverPage(props) {
     } else {
       isQueryTemp = false;
     }
-
-    //if (!discover) {
     if (!isQueryTemp) {
       if (sort !== "None") {
         axios
@@ -72,11 +68,6 @@ function DiscoverPage(props) {
           setIsQuery(false);
           setSort("None");
           setSortName("None");
-          // NotificationManager.warning(
-          //   "You cannot sort a query search",
-          //   "Close after 3000ms",
-          //   3000
-          // );
           if (res.data.total_results === 0) {
             setHasResult(false);
           } else {

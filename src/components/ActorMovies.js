@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import StarRatings from "react-star-ratings";
+import React from "react";
 import { Link } from "react-router-dom";
 import Img from "react-image";
-import axios from "axios";
 import { animateScroll as scroll } from "react-scroll";
 
 function ActorMovies({ movies }) {
