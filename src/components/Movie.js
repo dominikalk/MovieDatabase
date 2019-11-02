@@ -189,7 +189,9 @@ function Movie(props) {
             )}
           </div>
           <div className="col-4" style={{ fontSize: "1.1vw" }}>
-            <h1 style={{ fontSize: "3vw" }}>Details ...</h1>
+            <h1 className="mt-3" style={{ fontSize: "3vw" }}>
+              Details ...
+            </h1>
             <ul className="list-group-flush" style={{ padding: "0px" }}>
               <li className="list-group-item" style={{ padding: "0.8vw 2vw" }}>
                 <i className="fas fa-signature mr-3"></i>

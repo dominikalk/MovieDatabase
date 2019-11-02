@@ -13,35 +13,14 @@ import ActorProfile from "./components/ActorProfile";
 import ActorsPage from "./components/ActorsPage";
 import Footer from "./components/Footer";
 
-//import { fetchData } from "./actions/fetch";
-//import { useSelector, useDispatch } from "react-redux";
-
 function App() {
   const APIKey = "ae26cfa38fa23d831332968adb914c97";
   //const dispatch = useDispatch();
   const [discover, setDiscover] = useState();
-  const [movie, setMovie] = useState();
-
-  // useEffect(() => {
-  //   dispatch(fetchData());
-  //   axios
-  //     .get(`https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}`)
-  //     .then(res => setDiscover(res.data.results));
-  //   axios
-  //     .get(`https://api.themoviedb.org/3/movie/475557?api_key=${APIKey}`)
-  //     .then(res => {
-  //       setMovie(res.data);
-  //     });
-  // }, []);
 
   return (
-    <>
-      <div
-        style={{
-          position: "relative",
-          minHeight: "86vh"
-        }}
-      >
+    <div style={{ position: "relative", minHeight: "100vh" }}>
+      <div style={{ paddingBottom: "5.5rem" }}>
         <Navbar />
         <Switch>
           <Route path="/" exact component={Home} />
@@ -51,10 +30,10 @@ function App() {
           <Route path="/actor/:actorId" component={ActorProfile} />
           <Route component={NotFoundPage} />
         </Switch>
+        <div className="mb-4"></div>
       </div>
-
       <Footer />
-    </>
+    </div>
   );
 }
 
